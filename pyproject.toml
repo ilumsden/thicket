@@ -1,12 +1,73 @@
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry]
+[project]
 name = "llnl-thicket"
-version = "2024.1.0"
-description = "A Python-based toolkit for analyzing ensemble performance data."
 license = "MIT"
+description = "Toolkit for exploratory data analysis of ensemble performance data"
+readme = "README.md"
+requires-python = ">=3.6"
+dynamic = ["version"]
+dependencies = [
+  "scipy",
+  "numpy",
+  "pandas >= 1.1",
+  "llnl-hatchet",
+  "tqdm",
+  "more-itertools",
+  "rustworkx",
+]
+
+[project.urls]
+"Source Code" = "https://github.com/LLNL/thicket"
+Documentation = "https://thicket.readthedocs.io/"
+
+[project.optional-dependencies]
+extrap = ["extrap", "matplotlib"]
+plotting = ["seaborn"]
+vis = ["beautifulsoup4"]
+
+[tool.hatch.version]
+source = "code"
+path = "thicket/version.py"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  ".github",
+  "docs",
+  ".flake8",
+  ".gitlab-ci.yml",
+  ".readthedocs.yml",
+  "build_requirements.sh",
+  "codecov.yml",
+  "CONTRIBUTING.md",
+  "install.sh",
+  "license.py",
+  "logo-notext.png",
+  "pytest.ini",
+  "requirements.txt",
+  "thicket/tests",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["thicket"]
+exclude = [
+  ".github",
+  "docs",
+  ".flake8",
+  ".gitlab-ci.yml",
+  ".readthedocs.yml",
+  "build_requirements.sh",
+  "codecov.yml",
+  "CONTRIBUTING.md",
+  "install.sh",
+  "license.py",
+  "logo-notext.png",
+  "pytest.ini",
+  "requirements.txt",
+  "thicket/tests",
+]
 
 [tool.ruff]
 line-length = 88
